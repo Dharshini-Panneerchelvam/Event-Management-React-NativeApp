@@ -26,12 +26,25 @@ export default function SignUpScreen({ navigation }) {
     }
     try {
       await createUserWithEmailAndPassword(auth, email, password);
-      navigation.replace('SignIn');
-
+      
+      // Show success message and navigate on OK
+      Alert.alert(
+        'Success',
+        'Account created successfully!',
+        [
+          {
+            text: 'OK',
+            onPress: () => navigation.replace('SignIn')  // Navigate after OK is pressed
+          }
+        ],
+        { cancelable: false }
+      );
+  
     } catch (error) {
       Alert.alert('Sign Up Error', error.message);
     }
   };
+  
 
   return (
     <ImageBackground
@@ -63,7 +76,7 @@ export default function SignUpScreen({ navigation }) {
           <TouchableOpacity style={styles.buttonSign} onPress={handleSignUp}>
             <Text style={styles.buttonTextSign}>Sign Up</Text>
           </TouchableOpacity>
-          <TouchableOpacity onPress={() => navigation.navigate('SignIn')}>
+          <TouchableOpacity onPress={() => navigation.navigate('Main')}>
             <Text style={styles.linkTextSign}>Already have an account? Sign In</Text>
           </TouchableOpacity>
         </View>
